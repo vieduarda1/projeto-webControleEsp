@@ -30,13 +30,21 @@ export default function BoiaStatus(){
                          :'h-1/2 bg-blue-400' //metade
                     }`}></div>
                 </div>
-                <p className="text-center mt-4 font-medium">
+                <p className="text-center mt-4 font-medium mb-10">
                     Status: {statusBoia === 'ALTO' ? (
                         <span className="text-red-600">ALTO</span>)
                         :(<span className="text-blue-600">BAIXO</span>)
                     }
 
                 </p>
+
+                  <a
+                href="https://wokwi.com/projects/439347390163143681"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 bg-blue-600 text-white mt-5 items-center rounded xl-3">
+                    Acessar Wokwi da tela Boia
+            </a>
             </div>
         )
     

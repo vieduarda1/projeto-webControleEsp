@@ -1,44 +1,44 @@
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { enderecoServidor } from "../../utils";
 
 
-export default function TelaLed(){
+export default function TelaLed() {
     const [statusLed, setStatusLed] = useState('Desconhecido');
 
-    const buscarStatus = async() =>{
-        try{
+    const buscarStatus = async () => {
+        try {
             const resposta = await fetch(`${enderecoServidor}/api/status`);
             const dados = await resposta.json();
             setStatusLed(dados.status);
-        }catch(error){
+        } catch (error) {
             console.log('Erro ao buscar status', error);
         }
     }
 
-    const enviarComando = async(comando) =>{
-        try{
+    const enviarComando = async (comando) => {
+        try {
             const resposta = await fetch(`${enderecoServidor}/api/comando`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({comando}),
+                body: JSON.stringify({ comando }),
             });
             const dados = await resposta.json();
             console.log(dados.message);
             buscarStatus();
-        }catch(error){
+        } catch (error) {
             console.log('Erro ao enviar comando', error)
         }
     }
 
-    useEffect(() =>{
+    useEffect(() => {
         buscarStatus();
         const intervalo = setInterval(buscarStatus, 5000);
         return () => clearInterval(intervalo);
     })
 
-    return(
+    return (
         <div className="flex flex-col items-center bg-gray-100 p-6">
             <h1 className="text-2x1 font-bold text-gray-800 mb-6">Controle do LED</h1>
             <div className="mb-4">
@@ -47,9 +47,20 @@ export default function TelaLed(){
             <div className="flex gap-4">
                 <button onClick={() => enviarComando('LIGADO')} className="px-6 py-3 bg-green-500 hover:bg-green-600
                  text-white font-semibold rounded-lg transition">Ligar</button>
-                <button onClick={() => enviarComando('DESLIGADO')}  className="px-6 py-3 bg-red-500 hover:bg-red-600
+                <button onClick={() => enviarComando('DESLIGADO')} className="px-6 py-3 bg-red-500 hover:bg-red-600
                  text-white font-semibold rounded-lg transition">Desligar</button>
+
             </div>
+        <p className="mt-9"> Controle tela Led</p>
+            <a
+                
+                href="https://wokwi.com/projects/438623451209305089"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 bg-blue-600 text-white mt-3 rounded xl-2">
+                    Acessar o link
+            </a>
+
         </div>
     )
 }
